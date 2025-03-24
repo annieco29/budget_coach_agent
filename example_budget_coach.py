@@ -2,6 +2,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 import os
 from pathlib import Path
+from budget_coach import Transaction
 
 # Load environment variables from .env file
 load_dotenv()
@@ -38,4 +39,86 @@ result = graph.invoke(initial_state)
 # Print the results
 print("\n=== Budget Coach Insights ===\n")
 for message in result["messages"]:
-    print(message.content) 
+    print(message.content)
+
+def get_sample_transactions():
+    """Get a list of sample transactions for testing"""
+    return [
+        Transaction(
+            date=datetime(2024, 3, 15),
+            amount=150.50,
+            category="Dining",
+            description="Dinner at Fancy Restaurant",
+            merchant="Fancy Restaurant"
+        ),
+        Transaction(
+            date=datetime(2024, 3, 14),
+            amount=45.99,
+            category="Shopping",
+            description="New pair of shoes",
+            merchant="Shoe Store"
+        ),
+        Transaction(
+            date=datetime(2024, 3, 13),
+            amount=25.00,
+            category="Entertainment",
+            description="Movie tickets",
+            merchant="Movie Theater"
+        ),
+        Transaction(
+            date=datetime(2024, 3, 12),
+            amount=89.99,
+            category="Shopping",
+            description="New clothes",
+            merchant="Clothing Store"
+        ),
+        Transaction(
+            date=datetime(2024, 3, 11),
+            amount=35.00,
+            category="Dining",
+            description="Lunch with friends",
+            merchant="Cafe"
+        ),
+        Transaction(
+            date=datetime(2024, 3, 10),
+            amount=200.00,
+            category="Entertainment",
+            description="Concert tickets",
+            merchant="TicketMaster"
+        ),
+        Transaction(
+            date=datetime(2024, 3, 9),
+            amount=75.50,
+            category="Dining",
+            description="Weekend brunch",
+            merchant="Brunch Place"
+        ),
+        Transaction(
+            date=datetime(2024, 3, 8),
+            amount=120.00,
+            category="Shopping",
+            description="Electronics",
+            merchant="Tech Store"
+        ),
+        Transaction(
+            date=datetime(2024, 3, 7),
+            amount=40.00,
+            category="Entertainment",
+            description="Bowling night",
+            merchant="Bowling Alley"
+        ),
+        Transaction(
+            date=datetime(2024, 3, 6),
+            amount=65.00,
+            category="Dining",
+            description="Takeout dinner",
+            merchant="Local Restaurant"
+        )
+    ]
+
+if __name__ == "__main__":
+    # Example usage
+    transactions = get_sample_transactions()
+    from budget_coach import BudgetCoach
+    coach = BudgetCoach(transactions)
+    print(coach.get_response("Give me a summary of my spending.")) 
